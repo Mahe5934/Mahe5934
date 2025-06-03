@@ -45,13 +45,14 @@
             --minesweeper-cell-revealed-bg: rgba(15, 23, 42, 0.8);
             --tictactoe-cell-bg: rgba(30, 41, 59, 0.6);
             --tictactoe-cell-hover-bg: rgba(40, 51, 69, 0.8);
+            --modal-bg: rgba(0,0,0,0.75);
         }
 
         html.light-mode {
             --primary-color: #1d4ed8;
-            --secondary-color: #e5e7eb; /* Light gray for general bg elements */
+            --secondary-color: #e5e7eb; 
             --accent-color: #6d28d9;
-            --light-color: #111827; /* Dark text for light mode */
+            --light-color: #111827; 
             --gray-color: #4b5563;
 
             --bg-gradient-start: #f0f4ff;
@@ -82,6 +83,7 @@
             --minesweeper-cell-revealed-bg: rgba(229, 231, 235, 0.8);
             --tictactoe-cell-bg: rgba(209, 213, 219, 0.6);
             --tictactoe-cell-hover-bg: rgba(190, 193, 199, 0.8);
+            --modal-bg: rgba(0,0,0,0.5);
         }
         
         * {
@@ -91,6 +93,10 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             color: var(--text-main);
@@ -121,7 +127,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0; /* Reduced padding */
+            padding: 15px 0; 
         }
         
         .logo {
@@ -136,29 +142,36 @@
         .logo i {
             color: var(--accent-color);
         }
+
+        .nav-right-group {
+            display: flex;
+            align-items: center;
+            gap: 20px; 
+        }
         
         .nav-links {
             display: flex;
-            gap: 25px; /* Reduced gap */
+            gap: 25px; 
         }
         
         .nav-links a {
             text-decoration: none;
             color: var(--text-main);
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.2s;
             position: relative;
             padding: 5px 0;
         }
         
         .nav-links a:hover {
             color: var(--primary-color);
+            transform: translateY(-2px);
         }
         
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -2px; /* Adjusted position */
+            bottom: -2px; 
             left: 0;
             width: 0;
             height: 2px;
@@ -183,13 +196,14 @@
             font-size: 1.3rem;
             cursor: pointer;
             padding: 5px;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.2s;
         }
         #theme-toggle:hover {
             color: var(--primary-color);
+            transform: scale(1.1);
         }
         
-        .mobile-menu-btn { /* Renamed from .mobile-menu */
+        .mobile-menu-btn { 
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
@@ -200,7 +214,7 @@
         
         /* Hero Section */
         .hero {
-            padding: 100px 0 70px; /* Adjusted padding */
+            padding: 80px 0 60px; 
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -213,97 +227,111 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.1) 0%, transparent 40%);
+            background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
             z-index: -1;
+            opacity: 0.7;
         }
         
         .profile-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            max-width: 700px;
+            gap: 15px;
+            max-width: 750px;
             margin: 0 auto;
         }
         
         .profile-img {
-            width: 160px; /* Adjusted size */
-            height: 160px;
+            width: 150px; 
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid rgba(37, 99, 235, 0.3);
-            box-shadow: 0 5px 25px rgba(37, 99, 235, 0.3);
+            border: 5px solid rgba(var(--primary-color), 0.3);
+            box-shadow: 0 5px 25px rgba(var(--accent-color), 0.2);
             transition: all 0.3s ease;
         }
         
         .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.5);
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 10px 30px rgba(var(--primary-color), 0.4);
         }
         
         .hero h1 {
-            font-size: 3rem; /* Adjusted size */
-            margin-bottom: 10px;
+            font-size: 2.8rem; 
+            margin-bottom: 8px;
             color: var(--text-main);
-            /* Gradient text can be tricky with theme changes, keeping it for now */
-            background: linear-gradient(to right, #4ade80, #3b82f6, #8b5cf6);
+            background: linear-gradient(to right, var(--success-color), var(--primary-color), var(--accent-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
         .title {
-            font-size: 1.4rem; /* Adjusted size */
+            font-size: 1.3rem; 
             color: var(--primary-color);
             font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .hero p:not(.title):not(.availability-text) {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
             margin-bottom: 15px;
         }
-        .hero p:not(.title) {
-            color: var(--text-secondary);
+        .availability-text {
+            color: var(--success-color);
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
         }
         
         .social-icons {
             display: flex;
-            gap: 15px;
-            margin: 20px 0;
+            gap: 18px;
+            margin: 15px 0;
         }
         
         .social-icons a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px; /* Adjusted size */
-            height: 45px;
+            width: 42px; 
+            height: 42px;
             border-radius: 50%;
-            background: var(--card-bg); /* Use variable */
+            background: var(--card-bg); 
             backdrop-filter: blur(10px);
             color: var(--primary-color);
-            font-size: 1.4rem; /* Adjusted size */
+            font-size: 1.3rem; 
             transition: all 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--card-border); /* Use variable */
+            border: 1px solid var(--card-border); 
         }
         
         .social-icons a:hover {
             background: var(--primary-color);
-            color: white; /* Keep white for contrast on primary */
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.3);
+            color: white; 
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 15px rgba(var(--primary-color), 0.3);
         }
-        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
         .btn {
             display: inline-block;
-            padding: 12px 30px; /* Adjusted padding */
+            padding: 12px 28px; 
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            color: white; /* Keep white for contrast */
+            color: white !important; /* Ensure text is white */
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s;
-            margin-top: 20px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 5px 15px rgba(var(--primary-color), 0.3);
             letter-spacing: 0.5px;
             position: relative;
             overflow: hidden;
@@ -324,28 +352,35 @@
         }
         
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(var(--primary-color), 0.4);
         }
         
         .btn:hover::before {
             opacity: 1;
         }
+        .btn.secondary { /* For "Hire Me" button style */
+            background: var(--success-color);
+        }
+        .btn.secondary::before{
+            background: linear-gradient(135deg, var(--success-color) 0%, #0a8a60 100%);
+        }
+
         
         /* Sections */
         section {
-            padding: 80px 0; /* Adjusted padding */
+            padding: 70px 0; 
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 50px; /* Adjusted margin */
+            margin-bottom: 45px; 
         }
         
         .section-header h2 {
-            font-size: 2.5rem; /* Adjusted size */
+            font-size: 2.3rem; 
             color: var(--section-title-color);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             position: relative;
             display: inline-block;
         }
@@ -353,10 +388,10 @@
         .section-header h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 70px; /* Adjusted width */
+            width: 60px; 
             height: 4px;
             background: var(--primary-color);
             border-radius: 2px;
@@ -365,78 +400,78 @@
         .section-header p {
             color: var(--text-secondary);
             max-width: 700px;
-            margin: 25px auto 0; /* Adjusted margin */
-            font-size: 1.05rem; /* Adjusted size */
+            margin: 20px auto 0; 
+            font-size: 1rem; 
         }
         
         /* Portfolio */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Adjusted minmax */
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px;
         }
         
         .portfolio-card {
             background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Added springy transition */
             backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
         
         .portfolio-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.2);
-            border-color: rgba(37, 99, 235, 0.3); /* Could be a variable too */
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 18px 45px rgba(var(--primary-color), 0.15);
+            border-color: rgba(var(--primary-color), 0.3); 
         }
         
         .card-img {
-            height: 200px; /* Adjusted height */
+            height: 180px; 
             width: 100%;
             object-fit: cover;
             border-bottom: 1px solid var(--card-border);
         }
         
         .card-content {
-            padding: 20px; /* Adjusted padding */
+            padding: 18px; 
         }
         
         .card-content h3 {
-            margin-bottom: 10px; /* Adjusted margin */
+            margin-bottom: 8px; 
             color: var(--text-main);
-            font-size: 1.4rem; /* Adjusted size */
+            font-size: 1.3rem; 
         }
         
         .card-content p {
             color: var(--text-secondary);
-            margin-bottom: 15px; /* Adjusted margin */
-            font-size: 0.95rem; /* Adjusted size */
-            line-height: 1.6;
+            margin-bottom: 12px; 
+            font-size: 0.9rem; 
+            line-height: 1.55;
         }
         
         .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px; /* Adjusted gap */
-            margin-bottom: 15px;
+            gap: 7px; 
+            margin-bottom: 12px;
         }
         
         .tag {
-            background: var(--skill-item-bg); /* Re-use skill item style */
+            background: var(--skill-item-bg); 
             color: var(--skill-item-text);
-            padding: 5px 12px; /* Adjusted padding */
+            padding: 4px 10px; 
             border-radius: 20px;
-            font-size: 0.8rem; /* Adjusted size */
+            font-size: 0.75rem; 
             font-weight: 500;
         }
         
         /* Games Section */
         .games-container {
-            background: var(--card-bg); /* Use card bg for consistency */
+            background: var(--card-bg); 
             border-radius: 20px;
-            padding: 30px; /* Adjusted padding */
+            padding: 25px; 
             backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
@@ -444,14 +479,14 @@
         
         .games-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 25px; /* Adjusted margin */
+            gap: 8px;
+            margin-bottom: 20px; 
             flex-wrap: wrap;
             justify-content: center;
         }
         
         .tab-btn {
-            padding: 10px 20px; /* Adjusted padding */
+            padding: 9px 18px; 
             background: var(--tab-btn-bg);
             border: 1px solid var(--tab-btn-border);
             border-radius: 30px;
@@ -459,251 +494,166 @@
             font-weight: 600;
             transition: all 0.3s;
             color: var(--tab-btn-text);
-            font-size: 0.95rem; /* Adjusted size */
+            font-size: 0.9rem; 
         }
         
         .tab-btn.active {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            color: white; /* Keep white for contrast */
+            color: white; 
             border-color: transparent;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 5px 15px rgba(var(--primary-color), 0.3);
         }
         
         .game-content {
-            min-height: 450px; /* Adjusted height */
+            min-height: 400px; 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px; /* Adjusted padding */
+            padding: 10px; 
             border-radius: 15px;
             background: var(--game-content-bg);
+            position: relative; /* For expand button positioning */
         }
         
-        .game {
+        .game { /* This is the class for game instances, not templates */
             width: 100%;
-            max-width: 600px;
+            max-width: 550px;
             text-align: center;
+            padding-bottom: 50px; /* Space for expand button */
         }
-        
-        .game-header {
-            margin-bottom: 20px; /* Adjusted margin */
-        }
-        
-        .game-header h3 {
-            font-size: 1.6rem; /* Adjusted size */
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-        
-        .game-header p {
-            color: var(--text-secondary);
-            font-size: 1rem; /* Adjusted size */
-        }
+        .game-header { margin-bottom: 18px; }
+        .game-header h3 { font-size: 1.5rem; margin-bottom: 7px; color: var(--text-main); }
+        .game-header p { color: var(--text-secondary); font-size: 0.95rem; }
         
         /* Memory Game */
-        .memory-game {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px; /* Adjusted gap */
-            margin: 0 auto;
-            max-width: 400px; /* Adjusted max-width */
-        }
+        .memory-game { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 0 auto; max-width: 360px; }
+        .memory-card { aspect-ratio: 1/1; background: var(--memory-card-front-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; color: var(--text-main); cursor: pointer; transform-style: preserve-3d; transition: transform 0.5s, background 0.3s; perspective: 1000px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); line-height: 1; }
+        .memory-card.flipped { transform: rotateY(180deg); background: var(--memory-card-back-bg); }
         
-        .memory-card {
-            aspect-ratio: 1/1;
-            background: var(--memory-card-front-bg);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem; /* Adjusted size */
-            color: var(--text-main);
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.5s, background 0.3s;
-            perspective: 1000px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .memory-card.flipped {
-            transform: rotateY(180deg);
-            background: var(--memory-card-back-bg);
-        }
-        
-        .game-stats {
-            display: flex;
-            justify-content: center;
-            gap: 25px; /* Adjusted gap */
-            margin: 20px 0; /* Adjusted margin */
-            font-size: 1.1rem; /* Adjusted size */
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-        
-        .stat {
-            background: var(--game-content-bg); /* Use a slightly different bg */
-            padding: 8px 20px; /* Adjusted padding */
-            border-radius: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .stat-value {
-            color: var(--primary-color);
-            font-size: 1.3rem; /* Adjusted size */
-        }
+        .game-stats { display: flex; justify-content: center; gap: 20px; margin: 18px 0; font-size: 1rem; font-weight: 600; color: var(--text-secondary); }
+        .stat { background: var(--game-content-bg); padding: 7px 18px; border-radius: 50px; display: flex; flex-direction: column; align-items: center; }
+        .stat-value { color: var(--primary-color); font-size: 1.2rem; }
         
         /* Snake Game */
-        #snake-game { display: none; }
-        .snake-container { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .snake-board {
-            display: grid;
-            grid-template-columns: repeat(20, 18px); /* Adjusted cell size */
-            grid-template-rows: repeat(20, 18px);
-            gap: 1px;
-            background: var(--snake-board-bg);
-            padding: 8px; /* Adjusted padding */
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .snake-cell { width: 18px; height: 18px; background: var(--snake-cell-bg); border-radius: 2px; }
-        .snake-cell.snake { background: var(--success-color); border-radius: 4px; }
+        .snake-container { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .js-snake-board { display: grid; grid-template-columns: repeat(20, 16px); grid-template-rows: repeat(20, 16px); gap: 1px; background: var(--snake-board-bg); padding: 7px; border-radius: 5px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+        .snake-cell { width: 16px; height: 16px; background: var(--snake-cell-bg); border-radius: 2px; }
+        .snake-cell.snake { background: var(--success-color); border-radius: 3px; }
         .snake-cell.food { background: var(--danger-color); border-radius: 50%; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        .snake-controls { display: grid; grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(2, 50px); gap: 8px; margin-top: 15px; }
-        .control-btn { background: var(--tab-btn-bg); border: 1px solid var(--tab-btn-border); color: var(--text-main); font-size: 1.3rem; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .snake-controls { display: grid; grid-template-columns: repeat(3, 45px); grid-template-rows: repeat(2, 45px); gap: 7px; margin-top: 12px; }
+        .control-btn { background: var(--tab-btn-bg); border: 1px solid var(--tab-btn-border); color: var(--text-main); font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
         .control-btn:active { background: var(--primary-color); transform: scale(0.95); color: white; }
         .control-btn.up { grid-column: 2; grid-row: 1; } .control-btn.down { grid-column: 2; grid-row: 2; }
         .control-btn.left { grid-column: 1; grid-row: 2; } .control-btn.right { grid-column: 3; grid-row: 2; }
         
         /* Minesweeper Game */
-        #minesweeper-game { display: none; }
-        .minesweeper-container { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .minesweeper-board {
-            display: grid;
-            grid-template-columns: repeat(10, 28px); /* Adjusted cell size */
-            grid-template-rows: repeat(10, 28px);
-            gap: 2px;
-            background: var(--minesweeper-board-bg);
-            padding: 8px; /* Adjusted padding */
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .minesweeper-cell { width: 28px; height: 28px; background: var(--minesweeper-cell-bg); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; transition: all 0.2s; border: 1px solid var(--card-border); color: var(--text-main); }
+        .minesweeper-container { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .js-minesweeper-board { display: grid; grid-template-columns: repeat(10, 26px); grid-template-rows: repeat(10, 26px); gap: 1px; background: var(--minesweeper-board-bg); padding: 7px; border-radius: 5px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+        .minesweeper-cell { width: 26px; height: 26px; background: var(--minesweeper-cell-bg); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; transition: all 0.2s; border: 1px solid var(--card-border); color: var(--text-main); }
         .minesweeper-cell.revealed { background: var(--minesweeper-cell-revealed-bg); }
-        .minesweeper-cell.flagged::after { content: '🚩'; font-size: 0.9em; }
+        .minesweeper-cell.flagged::after { content: '🚩'; font-size: 0.8em; }
         .minesweeper-cell.mine { background: var(--danger-color); color: white; }
-        .minesweeper-cell.mine::after { content: '💣'; font-size: 0.9em; }
-
+        .minesweeper-cell.mine::after { content: '💣'; font-size: 0.8em; }
 
         /* Tic-Tac-Toe Game */
-        #tictactoe-game { display: none; }
-        .tictactoe-board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
-            margin: 20px auto;
-            width: 315px; /* 3*100 + 2*5 */
-        }
-        .tictactoe-cell {
-            width: 100px;
-            height: 100px;
-            background: var(--tictactoe-cell-bg);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .tictactoe-cell:hover:not(.occupied) {
-            background: var(--tictactoe-cell-hover-bg);
-        }
+        .js-tictactoe-board { display: grid; grid-template-columns: repeat(3, 90px); grid-template-rows: repeat(3, 90px); gap: 4px; margin: 18px auto; width: 278px; }
+        .tictactoe-cell { width: 90px; height: 90px; background: var(--tictactoe-cell-bg); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: bold; color: var(--text-main); cursor: pointer; transition: background-color 0.2s; }
+        .tictactoe-cell:hover:not(.occupied) { background: var(--tictactoe-cell-hover-bg); }
         .tictactoe-cell.occupied { cursor: not-allowed; }
-        #tictactoe-status { margin: 15px 0; font-size: 1.2rem; font-weight: 500; color: var(--text-secondary); }
+        .js-tictactoe-status { margin: 12px 0; font-size: 1.1rem; font-weight: 500; color: var(--text-secondary); }
 
         /* Rock Paper Scissors Game */
-        #rps-game { display: none; }
-        .rps-choices button {
-            font-size: 2.5rem;
-            padding: 15px;
-            margin: 0 10px;
-            border-radius: 10px;
-            background: var(--tab-btn-bg);
-            color: var(--text-main);
-            border: 1px solid var(--tab-btn-border);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .rps-choices button:hover { background: var(--primary-color); color: white; }
-        .rps-result { margin-top: 20px; }
-        .rps-result p { margin: 5px 0; font-size: 1.1rem; color: var(--text-secondary); }
+        .rps-choices button { font-size: 2.2rem; padding: 12px; margin: 0 8px; border-radius: 8px; background: var(--tab-btn-bg); color: var(--text-main); border: 1px solid var(--tab-btn-border); cursor: pointer; transition: all 0.2s; }
+        .rps-choices button:hover { background: var(--primary-color); color: white; transform: scale(1.1); }
+        .rps-result { margin-top: 18px; }
+        .rps-result p { margin: 4px 0; font-size: 1rem; color: var(--text-secondary); }
         .rps-result p strong { color: var(--text-main); }
-        #rps-player-score, #rps-computer-score { color: var(--primary-color); font-weight: bold; }
+        .js-rps-player-score, .js-rps-computer-score { color: var(--primary-color); font-weight: bold; }
+
+        .expand-game-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            background: var(--accent-color);
+        }
+        .expand-game-btn:before {
+             background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        }
 
 
         /* Skills Section */
         .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax */
-            gap: 25px; /* Adjusted gap */
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 20px; 
         }
         
         .skill-category {
             background: var(--skill-category-bg);
             border-radius: 15px;
-            padding: 25px; /* Adjusted padding */
+            padding: 20px; 
             backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(var(--accent-color),0.15);
         }
         
         .skill-category h3 {
-            font-size: 1.4rem; /* Adjusted size */
-            margin-bottom: 15px; /* Adjusted margin */
+            font-size: 1.3rem; 
+            margin-bottom: 12px; 
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
+        .skill-category h3 i { color: var(--primary-color); }
         
         .skill-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px; /* Adjusted gap */
+            gap: 8px; 
         }
         
         .skill-item {
             background: var(--skill-item-bg);
             color: var(--skill-item-text);
-            padding: 7px 14px; /* Adjusted padding */
+            padding: 6px 12px; 
             border-radius: 20px;
-            font-size: 0.85rem; /* Adjusted size */
+            font-size: 0.8rem; 
             font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+        .skill-item:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
         }
         
         /* Footer */
         footer {
             background: var(--footer-bg);
-            padding: 60px 0 25px; /* Adjusted padding */
+            padding: 50px 0 20px; 
             border-top: 1px solid var(--footer-border);
         }
         
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 35px; /* Adjusted gap */
-            margin-bottom: 35px;
+            gap: 30px; 
+            margin-bottom: 30px;
         }
         
         .footer-column h3 {
-            font-size: 1.4rem; /* Adjusted size */
-            margin-bottom: 20px; /* Adjusted margin */
+            font-size: 1.3rem; 
+            margin-bottom: 18px; 
             position: relative;
             color: var(--text-main);
         }
@@ -711,120 +661,207 @@
         .footer-column h3::after {
             content: '';
             position: absolute;
-            bottom: -8px; /* Adjusted position */
+            bottom: -7px; 
             left: 0;
-            width: 35px; /* Adjusted width */
+            width: 30px; 
             height: 3px;
             background: var(--primary-color);
         }
         
         .footer-column p {
             color: var(--text-secondary);
-            margin-bottom: 18px; /* Adjusted margin */
-            line-height: 1.6;
+            margin-bottom: 15px; 
+            line-height: 1.55;
+            font-size: 0.9rem;
         }
         
-        .footer-links {
-            list-style: none;
-        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--primary-color); }
+        .footer-links i { width: 16px; }
         
-        .footer-links li {
-            margin-bottom: 10px; /* Adjusted margin */
-        }
-        
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-        
-        .footer-links i {
-            width: 18px; /* Adjusted width */
-        }
-        
-        .contact-info p {
-            display: flex;
-            align-items: center;
-            gap: 12px; /* Adjusted gap */
-            margin-bottom: 12px;
-        }
+        .contact-info p { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.9rem;}
+        .contact-info p i { color: var(--primary-color); }
         footer input, footer textarea {
-            padding: 10px 12px; /* Adjusted padding */
+            padding: 9px 10px; 
             width: 100%; 
-            margin-bottom: 12px; 
+            margin-bottom: 10px; 
             border-radius: 8px; 
             border: 1px solid var(--card-border);
             background: var(--input-bg); 
             color: var(--input-text);
         }
-        footer input::placeholder, footer textarea::placeholder {
-            color: var(--text-secondary);
-        }
+        footer input::placeholder, footer textarea::placeholder { color: var(--text-secondary); }
         
         .copyright {
             text-align: center;
-            padding-top: 25px; /* Adjusted padding */
+            padding-top: 20px; 
             border-top: 1px solid var(--footer-border);
             color: var(--text-secondary);
-            font-size: 0.95rem; /* Adjusted size */
+            font-size: 0.9rem; 
+        }
+
+        /* Modal for Games */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1001; /* Higher than header */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: var(--modal-bg);
+            padding-top: 20px; /* Space from top */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal.show {
+            display: flex; /* Use flex for centering */
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--game-content-bg); 
+            margin: auto;
+            padding: 25px;
+            border: 1px solid var(--card-border);
+            width: 90%; 
+            max-width: 800px; /* Adjust as needed */
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            color: var(--text-secondary);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-close-btn:hover,
+        .modal-close-btn:focus {
+            color: var(--danger-color);
+            text-decoration: none;
+        }
+        #modal-game-area { /* Renamed from modal-game-container */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh; /* Adjust as needed */
+            width: 100%;
+        }
+        /* Example: Scale up game boards in modal if needed */
+        #modal-game-area .js-snake-board,
+        #modal-game-area .js-minesweeper-board,
+        #modal-game-area .memory-game, /* memory-game is class of the grid */
+        #modal-game-area .js-tictactoe-board {
+            transform: scale(1.1); /* Adjust scale */
+        }
+        #modal-game-area .game { padding-bottom: 0; } /* Remove extra padding */
+        #modal-game-area .expand-game-btn { display: none; } /* Hide expand button in modal */
+
+
+        /* Scroll to Top Button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            transform: translateY(20px);
+        }
+        #scroll-to-top.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scroll-to-top:hover {
+            background-color: var(--accent-color);
         }
         
         /* Responsive */
         @media (max-width: 992px) {
-            .hero h1 { font-size: 2.6rem; }
-            .section-header h2 { font-size: 2.2rem; }
-            .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+            .hero h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2.1rem; }
+            .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
         }
         
         @media (max-width: 768px) {
+            .nav-right-group { flex-direction: row-reverse; /* Puts mobile menu button first */ }
             .nav-links {
-                display: none;
+                display: none; 
                 flex-direction: column;
                 position: absolute;
-                top: 65px; /* Adjust based on header height */
+                top: 62px; /* Adjusted based on header height */
                 left: 0;
                 right: 0;
                 background-color: var(--header-bg);
                 padding: 20px;
                 box-shadow: 0 5px 10px rgba(0,0,0,0.1);
                 gap: 15px;
+                z-index: 99;
             }
-            header.mobile-nav-active .nav-links {
-                display: flex;
+            header.mobile-nav-active .nav-links { display: flex; }
+            .mobile-menu-btn { display: block; } 
+
+            .hero { padding: 70px 0 40px; }
+            .hero h1 { font-size: 2.1rem; }
+            section { padding: 60px 0; }
+            .section-header h2 { font-size: 1.8rem; }
+            .games-container { padding: 18px; }
+            .memory-game { grid-template-columns: repeat(4, 1fr); gap: 7px; max-width: 300px; }
+            .memory-card { font-size: 1.6rem; }
+            .js-tictactoe-board { grid-template-columns: repeat(3, 75px); grid-template-rows: repeat(3, 75px); width: 233px; } /* 3*75 + 2*4 */
+            .tictactoe-cell { width: 75px; height: 75px; font-size: 2.3rem; }
+            .rps-choices button { font-size: 1.8rem; padding: 8px; margin: 0 4px; }
+            .modal-content { width: 95%; padding: 15px; }
+            #modal-game-area .js-snake-board,
+            #modal-game-area .js-minesweeper-board,
+            #modal-game-area .memory-game,
+            #modal-game-area .js-tictactoe-board {
+                transform: scale(1); /* No scaling on smaller modals */
             }
-            
-            .mobile-menu-btn { display: block; }
-            .hero { padding: 80px 0 50px; }
-            .hero h1 { font-size: 2.2rem; }
-            section { padding: 70px 0; }
-            .section-header h2 { font-size: 1.9rem; }
-            .games-container { padding: 20px; }
-            .memory-game { grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 320px; }
-            .memory-card { font-size: 1.8rem; }
-            .tictactoe-board { grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(3, 80px); width: 250px; }
-            .tictactoe-cell { width: 80px; height: 80px; font-size: 2.5rem; }
-            .rps-choices button { font-size: 2rem; padding: 10px; margin: 0 5px; }
+
         }
         
         @media (max-width: 480px) {
-            .hero h1 { font-size: 1.9rem; }
-            .title { font-size: 1.1rem; }
-            .section-header h2 { font-size: 1.7rem; }
-            .game-stats { flex-direction: column; gap: 10px; }
-            .snake-board { grid-template-columns: repeat(20, 14px); grid-template-rows: repeat(20, 14px); }
-            .snake-cell { width: 14px; height: 14px; }
-            .minesweeper-board { grid-template-columns: repeat(10, 24px); grid-template-rows: repeat(10, 24px); }
-            .minesweeper-cell { width: 24px; height: 24px; font-size: 0.7rem; }
-            .tictactoe-board { grid-template-columns: repeat(3, 70px); grid-template-rows: repeat(3, 70px); width: 220px; }
-            .tictactoe-cell { width: 70px; height: 70px; font-size: 2rem; }
-            .rps-choices button { font-size: 1.8rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .title { font-size: 1.05rem; }
+            .section-header h2 { font-size: 1.6rem; }
+            .game-stats { flex-direction: column; gap: 8px; }
+            .js-snake-board { grid-template-columns: repeat(20, 12px); grid-template-rows: repeat(20, 12px); }
+            .snake-cell { width: 12px; height: 12px; }
+            .js-minesweeper-board { grid-template-columns: repeat(10, 22px); grid-template-rows: repeat(10, 22px); }
+            .minesweeper-cell { width: 22px; height: 22px; font-size: 0.65rem; }
+            .js-tictactoe-board { grid-template-columns: repeat(3, 65px); grid-template-rows: repeat(3, 65px); width: 203px; } /* 3*65 + 2*4 */
+            .tictactoe-cell { width: 65px; height: 65px; font-size: 1.8rem; }
+            .rps-choices button { font-size: 1.6rem; }
+            .expand-game-btn { font-size: 0.8rem; padding: 6px 12px;}
+            .hero-buttons .btn { padding: 10px 20px; font-size: 0.9rem;}
         }
     </style>
 </head>
@@ -837,20 +874,22 @@
                     <i class="fas fa-laptop-code"></i>
                     <span>Mahendar Yata</span>
                 </div>
-                <div class="nav-links">
-                    <a href="#home">Home</a>
-                    <a href="#portfolio">Portfolio</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#games">Mini Games</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="nav-controls">
-                    <button id="theme-toggle" aria-label="Toggle theme">
-                        <i class="fas fa-sun"></i>
-                    </button>
-                    <button class="mobile-menu-btn" aria-label="Open navigation menu">
-                        <i class="fas fa-bars"></i>
-                    </button>
+                <div class="nav-right-group">
+                    <div class="nav-links">
+                        <a href="#home">Home</a>
+                        <a href="#portfolio">Portfolio</a>
+                        <a href="#skills">Skills</a>
+                        <a href="#games">Mini Games</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    <div class="nav-controls">
+                        <button id="theme-toggle" aria-label="Toggle theme">
+                            <i class="fas fa-sun"></i>
+                        </button>
+                        <button class="mobile-menu-btn" aria-label="Open navigation menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -863,14 +902,17 @@
                 <img src="https://avatars.githubusercontent.com/u/24631930?v=4" alt="Mahendar Yata" class="profile-img">
                 <h1>Mahendar Yata</h1>
                 <p class="title">Full Stack Developer & Technology Enthusiast</p>
-                <p>Passionate about creating innovative solutions, exploring new technologies, and building impactful digital experiences with a focus on full-stack development and AI integration. I thrive on challenges and constantly push boundaries in the tech world.</p>
+                <p>Passionate about creating innovative solutions and building impactful digital experiences. Specializing in full-stack development and AI integration to bring ideas to life.</p>
+                <p class="availability-text">🚀 Available for freelance projects & exciting job opportunities!</p>
                 <div class="social-icons">
-                    <a href="#" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Medium Profile"><i class="fab fa-medium-m"></i></a>
+                    <a href="https://github.com/Mahe5934" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/Mahe5934" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/Mahe5934" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
                 </div>
-                <a href="#portfolio" class="btn">Explore My Work</a>
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn">Explore My Work</a>
+                    <a href="#contact" class="btn secondary">Hire Me</a>
+                </div>
             </div>
         </div>
     </section>
@@ -880,7 +922,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>My Portfolio</h2>
-                <p>Explore my latest projects focusing on front-end and backend development, full-stack app building, and AI support.</p>
+                <p>Explore my latest projects focusing on front-end and backend development, full-stack app building, and AI integration. I'm passionate about building robust and user-friendly applications. <br><em>(Project links will be updated soon!)</em></p>
             </div>
             <div class="portfolio-grid">
                 <div class="portfolio-card">
@@ -894,7 +936,7 @@
                             <span class="tag">MongoDB</span>
                             <span class="tag">AI/ML</span>
                         </div>
-                        <a href="#" class="btn">View Project</a>
+                        <a href="javascript:void(0);" class="btn" title="Project link coming soon">View Project</a>
                     </div>
                 </div>
                 
@@ -909,12 +951,12 @@
                             <span class="tag">TensorFlow</span>
                             <span class="tag">PostgreSQL</span>
                         </div>
-                        <a href="#" class="btn">View Project</a>
+                        <a href="javascript:void(0);" class="btn" title="Project link coming soon">View Project</a>
                     </div>
                 </div>
                 
                 <div class="portfolio-card">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Intelligent Customer Support System Project" class="card-img">
+                    <img src="https://images.unsplash.com/photo-1611162616805-65822dd39094?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Intelligent Customer Support System Project" class="card-img">
                     <div class="card-content">
                         <h3>Intelligent Customer Support System</h3>
                         <p>A full-stack platform featuring an AI-powered chatbot for instant query resolution, sentiment analysis for customer feedback, and automated ticket routing. Developed using React, Python (Django), and NLP technologies.</p>
@@ -924,7 +966,7 @@
                             <span class="tag">NLP</span>
                             <span class="tag">Full Stack</span>
                         </div>
-                        <a href="#" class="btn">View Project</a>
+                        <a href="javascript:void(0);" class="btn" title="Project link coming soon">View Project</a>
                     </div>
                 </div>
             </div>
@@ -936,7 +978,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Technical Skills</h2>
-                <p>Technologies and tools I specialize in and continuously explore</p>
+                <p>My expertise in various technologies for building modern applications</p>
             </div>
             <div class="skills-container">
                 <div class="skill-category">
@@ -954,27 +996,19 @@
                     <div class="skill-list">
                         <span class="skill-item">Node.js</span> <span class="skill-item">Express.js</span>
                         <span class="skill-item">Python</span> <span class="skill-item">Django/Flask</span>
+                        <span class="skill-item">Go</span>
                         <span class="skill-item">RESTful APIs</span> <span class="skill-item">GraphQL</span>
                         <span class="skill-item">Firebase</span> <span class="skill-item">Java (Spring)</span>
                     </div>
                 </div>
                 
                 <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> AI & Data Science</h3>
+                    <h3><i class="fas fa-robot"></i> AI Implementation</h3>
                     <div class="skill-list">
-                        <span class="skill-item">Machine Learning</span> <span class="skill-item">NLP</span>
-                        <span class="skill-item">TensorFlow</span> <span class="skill-item">PyTorch</span>
-                        <span class="skill-item">Scikit-learn</span> <span class="skill-item">Pandas</span>
-                         <span class="skill-item">Data Visualization</span>
-                    </div>
-                </div>
-                 <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> Database & DevOps</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">MongoDB</span> <span class="skill-item">PostgreSQL</span>
-                        <span class="skill-item">MySQL</span> <span class="skill-item">Docker</span>
-                        <span class="skill-item">Kubernetes</span> <span class="skill-item">AWS/Azure/GCP</span>
-                        <span class="skill-item">Git & CI/CD</span>
+                        <span class="skill-item">Chatbot Development</span> <span class="skill-item">Workflow Automation</span>
+                        <span class="skill-item">API Integration</span> <span class="skill-item">AI-driven UI/UX</span>
+                        <span class="skill-item">Personalization Engines</span> <span class="skill-item">Basic NLP Tasks</span>
+                         <span class="skill-item">AIaaS Integration</span>
                     </div>
                 </div>
             </div>
@@ -986,7 +1020,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Mini Games</h2>
-                <p>Try these interactive games I've built. Have fun while sharpening your skills!</p>
+                <p>Try these interactive games I've built. Click "Expand Game" for a larger view!</p>
             </div>
             <div class="games-container">
                 <div class="games-tabs">
@@ -998,94 +1032,7 @@
                 </div>
                 
                 <div class="game-content">
-                    <div class="game" id="memory-game">
-                        <div class="game-header">
-                            <h3>Memory Card Game</h3>
-                            <p>Match pairs of cards. Test your memory!</p>
-                        </div>
-                        <div class="memory-game">
-                            <!-- Cards will be generated by JS or duplicated here -->
-                            <div class="memory-card" data-card="A">?</div> <div class="memory-card" data-card="B">?</div>
-                            <div class="memory-card" data-card="C">?</div> <div class="memory-card" data-card="D">?</div>
-                            <div class="memory-card" data-card="A">?</div> <div class="memory-card" data-card="B">?</div>
-                            <div class="memory-card" data-card="C">?</div> <div class="memory-card" data-card="D">?</div>
-                            <div class="memory-card" data-card="E">?</div> <div class="memory-card" data-card="F">?</div>
-                            <div class="memory-card" data-card="E">?</div> <div class="memory-card" data-card="F">?</div>
-                        </div>
-                        <div class="game-stats">
-                            <div class="stat"> <span>Moves</span> <span class="stat-value" id="moves">0</span> </div>
-                            <div class="stat"> <span>Pairs Found</span> <span class="stat-value" id="pairs">0</span> </div>
-                        </div>
-                        <button class="btn" id="reset-memory">Reset Game</button>
-                    </div>
-                    
-                    <div class="game" id="snake-game">
-                        <div class="game-header">
-                            <h3>Snake Game</h3>
-                            <p>Use arrow keys or on-screen buttons to control the snake. Eat the red food to grow!</p>
-                        </div>
-                        <div class="snake-container">
-                            <div class="snake-board" id="snake-board"></div>
-                            <div class="game-stats">
-                                <div class="stat"> <span>Score</span> <span class="stat-value" id="snake-score">0</span> </div>
-                                <div class="stat"> <span>Speed</span> <span class="stat-value" id="snake-speed">1</span> </div>
-                            </div>
-                            <div class="snake-controls">
-                                <button class="control-btn up" aria-label="Move snake up"><i class="fas fa-arrow-up"></i></button>
-                                <button class="control-btn left" aria-label="Move snake left"><i class="fas fa-arrow-left"></i></button>
-                                <button class="control-btn down" aria-label="Move snake down"><i class="fas fa-arrow-down"></i></button>
-                                <button class="control-btn right" aria-label="Move snake right"><i class="fas fa-arrow-right"></i></button>
-                            </div>
-                            <button class="btn" id="reset-snake">Start Game</button>
-                        </div>
-                    </div>
-                    
-                    <div class="game" id="minesweeper-game">
-                        <div class="game-header">
-                            <h3>Minesweeper</h3>
-                            <p>Left-click to reveal, right-click to flag. Find all non-mine cells!</p>
-                        </div>
-                        <div class="minesweeper-container">
-                            <div class="minesweeper-board" id="minesweeper-board"></div>
-                            <div class="game-stats">
-                                <div class="stat"> <span>Mines</span> <span class="stat-value" id="mines-count">10</span> </div>
-                                <div class="stat"> <span>Flags</span> <span class="stat-value" id="flags-count">10</span> </div>
-                            </div>
-                            <button class="btn" id="reset-minesweeper">New Game</button>
-                        </div>
-                    </div>
-
-                    <div class="game" id="tictactoe-game">
-                        <div class="game-header">
-                            <h3>Tic-Tac-Toe</h3>
-                            <p>Get three in a row to win!</p>
-                        </div>
-                        <div id="tictactoe-status">Player X's turn</div>
-                        <div class="tictactoe-board" id="tictactoe-board">
-                            <!-- Cells generated by JS or hardcoded -->
-                        </div>
-                        <button class="btn" id="reset-tictactoe">Reset Game</button>
-                    </div>
-
-                    <div class="game" id="rps-game">
-                        <div class="game-header">
-                            <h3>Rock Paper Scissors</h3>
-                            <p>Choose your weapon and challenge the computer!</p>
-                        </div>
-                        <div class="rps-choices">
-                            <button id="rps-rock" aria-label="Rock">✊</button>
-                            <button id="rps-paper" aria-label="Paper">✋</button>
-                            <button id="rps-scissors" aria-label="Scissors">✌️</button>
-                        </div>
-                        <div class="rps-result">
-                            <p>Your choice: <strong id="rps-player-choice">-</strong></p>
-                            <p>Computer's choice: <strong id="rps-computer-choice">-</strong></p>
-                            <p>Result: <strong id="rps-outcome">-</strong></p>
-                            <p>Score: You <span id="rps-player-score">0</span> - <span id="rps-computer-score">0</span> Computer</p>
-                        </div>
-                        <button class="btn" id="reset-rps" style="margin-top:10px;">Play Again</button>
-                    </div>
-
+                    <!-- Active game instance will be placed here by JS -->
                 </div>
             </div>
         </div>
@@ -1097,12 +1044,11 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Mahendar Yata</h3>
-                    <p>Passionate about coding, technology, and creating innovative solutions that make a difference. Constantly exploring new frontiers in the digital world.</p>
+                    <p>Full Stack Developer ready to build your next web application or automate your workspace with AI. Let's connect and create something amazing!</p>
                     <div class="social-icons">
-                         <a href="#" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-                        <a href="#" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Medium Profile"><i class="fab fa-medium-m"></i></a>
+                         <a href="https://github.com/Mahe5934" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/Mahe5934" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/Mahe5934" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
                 
@@ -1119,15 +1065,16 @@
                 <div class="footer-column">
                     <h3>Contact Me</h3>
                     <div class="contact-info">
-                        <p><i class="fas fa-envelope"></i> contact@mahendaryata.com</p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:Mahendar5934@gmail.com" style="color: var(--text-secondary); text-decoration: none;">Mahendar5934@gmail.com</a></p>
                         <p><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
-                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <!-- <p><i class="fas fa-phone"></i> +91 xxxxx</p> -->
                     </div>
-                    <form>
-                        <input type="email" placeholder="Your Email" aria-label="Your Email">
-                        <textarea placeholder="Your Message" rows="3" aria-label="Your Message"></textarea>
+                    <form action="https://formspree.io/f/xjkrvqdz" method="POST"> <!-- Replace YOUR_FORMSPREE_ID -->
+                        <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" required>
+                        <textarea name="message" placeholder="Your Message" rows="3" aria-label="Your Message" required></textarea>
                         <button type="submit" class="btn" style="width: 100%;">Send Message</button>
                     </form>
+                    <small style="color: var(--text-secondary); font-size: 0.8rem; display: block; margin-top: 5px;">Or reach out directly via email or social media.</small>
                 </div>
             </div>
             <div class="copyright">
@@ -1136,18 +1083,106 @@
         </div>
     </footer>
 
+    <!-- Game Modal -->
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn" aria-label="Close modal">×</span>
+            <div id="modal-game-area">
+                <!-- Selected game will be injected here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Templates for Games (Hidden initially) -->
+    <div id="game-templates" style="display: none;">
+        <div class="game" id="memory-game-template">
+            <div class="game-header"> <h3>Emoji Memory Match</h3> <p>Match pairs of emojis. Test your memory!</p> </div>
+            <div class="memory-game">
+                <div class="memory-card" data-card="🐶">?</div> <div class="memory-card" data-card="🐱">?</div>
+                <div class="memory-card" data-card="🐭">?</div> <div class="memory-card" data-card="🐹">?</div>
+                <div class="memory-card" data-card="🐶">?</div> <div class="memory-card" data-card="🐱">?</div>
+                <div class="memory-card" data-card="🐰">?</div> <div class="memory-card" data-card="🦊">?</div>
+                <div class="memory-card" data-card="🐭">?</div> <div class="memory-card" data-card="🐹">?</div>
+                <div class="memory-card" data-card="🐰">?</div> <div class="memory-card" data-card="🦊">?</div>
+            </div>
+            <div class="game-stats">
+                <div class="stat"> <span>Moves</span> <span class="stat-value js-memory-moves">0</span> </div>
+                <div class="stat"> <span>Pairs Found</span> <span class="stat-value js-memory-pairs">0</span> </div>
+            </div>
+            <button class="btn js-reset-memory">Reset Game</button>
+            <button class="btn expand-game-btn" data-game-target="memory">Expand Game</button>
+        </div>
+        
+        <div class="game" id="snake-game-template">
+            <div class="game-header"> <h3>Snake Game</h3> <p>Use arrow keys or on-screen buttons. Eat food to grow!</p> </div>
+            <div class="snake-container">
+                <div class="js-snake-board"></div>
+                <div class="game-stats">
+                    <div class="stat"> <span>Score</span> <span class="stat-value js-snake-score">0</span> </div>
+                    <div class="stat"> <span>Speed</span> <span class="stat-value js-snake-speed">1</span> </div>
+                </div>
+                <div class="snake-controls">
+                    <button class="control-btn up" aria-label="Move snake up"><i class="fas fa-arrow-up"></i></button>
+                    <button class="control-btn left" aria-label="Move snake left"><i class="fas fa-arrow-left"></i></button>
+                    <button class="control-btn down" aria-label="Move snake down"><i class="fas fa-arrow-down"></i></button>
+                    <button class="control-btn right" aria-label="Move snake right"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <button class="btn js-reset-snake">Start Game</button>
+            </div>
+            <button class="btn expand-game-btn" data-game-target="snake">Expand Game</button>
+        </div>
+        
+        <div class="game" id="minesweeper-game-template">
+            <div class="game-header"> <h3>Minesweeper</h3> <p>Left-click to reveal, right-click to flag. Find all non-mine cells!</p> </div>
+            <div class="minesweeper-container">
+                <div class="js-minesweeper-board"></div>
+                <div class="game-stats">
+                    <div class="stat"> <span>Mines</span> <span class="stat-value js-mines-count">10</span> </div>
+                    <div class="stat"> <span>Flags</span> <span class="stat-value js-flags-count">10</span> </div>
+                </div>
+                <button class="btn js-reset-minesweeper">New Game</button>
+            </div>
+            <button class="btn expand-game-btn" data-game-target="minesweeper">Expand Game</button>
+        </div>
+
+        <div class="game" id="tictactoe-game-template">
+            <div class="game-header"> <h3>Tic-Tac-Toe</h3> <p>Get three in a row to win!</p> </div>
+            <div class="js-tictactoe-status">Player X's turn</div>
+            <div class="js-tictactoe-board"> </div>
+            <button class="btn js-reset-tictactoe">Reset Game</button>
+            <button class="btn expand-game-btn" data-game-target="tictactoe">Expand Game</button>
+        </div>
+
+        <div class="game" id="rps-game-template">
+            <div class="game-header"> <h3>Rock Paper Scissors</h3> <p>Challenge the computer!</p> </div>
+            <div class="rps-choices">
+                <button class="js-rps-rock" aria-label="Rock">✊</button>
+                <button class="js-rps-paper" aria-label="Paper">✋</button>
+                <button class="js-rps-scissors" aria-label="Scissors">✌️</button>
+            </div>
+            <div class="rps-result">
+                <p>Your choice: <strong class="js-rps-player-choice">-</strong></p>
+                <p>Computer's choice: <strong class="js-rps-computer-choice">-</strong></p>
+                <p>Result: <strong class="js-rps-outcome">-</strong></p>
+                <p>Score: You <span class="js-rps-player-score">0</span> - <span class="js-rps-computer-score">0</span> Computer</p>
+            </div>
+            <button class="btn js-reset-rps" style="margin-top:10px;">Play Again</button>
+            <button class="btn expand-game-btn" data-game-target="rps">Expand Game</button>
+        </div>
+    </div>
+
+    <button id="scroll-to-top" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- Theme Toggle ---
         const themeToggle = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
         const themeIcon = themeToggle.querySelector('i');
-
-        // Apply saved theme on load
         const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
         htmlElement.classList.toggle('light-mode', savedTheme === 'light');
         themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-
         themeToggle.addEventListener('click', () => {
             htmlElement.classList.toggle('light-mode');
             const isLightMode = htmlElement.classList.contains('light-mode');
@@ -1159,12 +1194,7 @@
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const header = document.querySelector('header');
         const navLinksContainer = document.querySelector('.nav-links');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            header.classList.toggle('mobile-nav-active');
-        });
-
-        // Close mobile menu when a link is clicked
+        mobileMenuBtn.addEventListener('click', () => header.classList.toggle('mobile-nav-active'));
         navLinksContainer.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (header.classList.contains('mobile-nav-active')) {
@@ -1173,553 +1203,478 @@
             });
         });
 
+        // --- Game Management & Modal ---
+        const gameContentArea = document.querySelector('.games-container .game-content');
+        const gameModal = document.getElementById('game-modal');
+        const modalGameArea = document.getElementById('modal-game-area');
+        const modalCloseBtn = gameModal.querySelector('.modal-close-btn');
+        let activeGameElementInTab = null; 
+        let gameElementInModal = null;
+
+        function openGameModal(gameTypeFromBtn) {
+            const gameTemplateId = `${gameTypeFromBtn}-game-template`;
+            const template = document.getElementById(gameTemplateId);
+            if (!template) { console.error("Template not found for game:", gameTypeFromBtn); return; }
+
+            // If there's a game in the tab, store it to move back later
+            if (gameContentArea.firstChild && gameContentArea.firstChild.classList && gameContentArea.firstChild.classList.contains('game')) {
+                 activeGameElementInTab = gameContentArea.firstChild;
+            }
+            
+            gameElementInModal = template.cloneNode(true);
+            gameElementInModal.id = `${gameTypeFromBtn}-game-modal-instance`; // Unique ID for modal instance
+            
+            modalGameArea.innerHTML = ''; 
+            modalGameArea.appendChild(gameElementInModal);
+            
+            gameModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+
+            // Initialize the game in the modal
+            initializeGameByType(gameTypeFromBtn, gameElementInModal);
+        }
+
+        function closeGameModal() {
+            gameModal.classList.remove('show');
+            document.body.style.overflow = '';
+            
+            // If there was a game in the tab before opening modal, restore it.
+            // Otherwise, the gameContentArea might be empty or have the last tab-selected game.
+            // The tab click handler will repopulate gameContentArea if user clicks a tab.
+            if (gameElementInModal) { // Clean up the modal's game instance
+                gameElementInModal.remove();
+                gameElementInModal = null;
+            }
+            // No need to explicitly move back, tab selection handles main area.
+            // If activeGameElementInTab was stored, it's implicitly "back" if user clicks its tab.
+        }
+        
+        function initializeGameByType(gameType, gameElement) {
+            if (gameType === "memory") initializeMemoryGame(gameElement);
+            else if (gameType === "snake") initializeSnakeGame(gameElement);
+            else if (gameType === "minesweeper") initializeMinesweeperGame(gameElement);
+            else if (gameType === "tictactoe") initializeTicTacToeGame(gameElement);
+            else if (gameType === "rps") initializeRPSGame(gameElement);
+        }
+
+
+        modalCloseBtn.addEventListener('click', closeGameModal);
+        gameModal.addEventListener('click', (e) => { 
+            if (e.target === gameModal) closeGameModal();
+        });
+        
         // --- Tab Switching for Games ---
         const tabBtns = document.querySelectorAll('.tab-btn');
-        const gameContents = document.querySelectorAll('.game');
-        
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 tabBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                const gameId = btn.getAttribute('data-game');
-                gameContents.forEach(game => {
-                    game.style.display = game.id === `${gameId}-game` ? 'block' : 'none';
-                });
-                // Initialize or reset game if needed when tab is switched
-                if (gameId === "memory") resetMemoryGame();
-                else if (gameId === "snake") { /* initSnakeBoard(); // or a soft reset */ }
-                else if (gameId === "minesweeper") initMinesweeperBoard();
-                else if (gameId === "tictactoe") resetTicTacToe();
-                else if (gameId === "rps") resetRPSGame(false); // soft reset
+                const gameType = btn.getAttribute('data-game'); 
+                const gameTemplateId = `${gameType}-game-template`;
+                const template = document.getElementById(gameTemplateId);
+
+                gameContentArea.innerHTML = ''; 
+                if (template) {
+                    activeGameElementInTab = template.cloneNode(true); // This is the new game for the tab
+                    activeGameElementInTab.id = `${gameType}-game-tab-instance`; 
+                    gameContentArea.appendChild(activeGameElementInTab);
+                    
+                    initializeGameByType(gameType, activeGameElementInTab);
+
+                    const expandBtn = activeGameElementInTab.querySelector('.expand-game-btn');
+                    if (expandBtn) {
+                        // Make sure to use the correct gameType from the button's data attribute
+                        const gameTargetType = expandBtn.dataset.gameTarget;
+                        expandBtn.addEventListener('click', () => {
+                            openGameModal(gameTargetType);
+                        });
+                    }
+                }
             });
         });
-        
+
+        // --- Game Initialization Functions (scoped to gameRootElement) ---
+
         // --- Memory Game Logic ---
-        const memoryGameContainer = document.querySelector('.memory-game');
-        let memoryCardsElements = Array.from(memoryGameContainer.querySelectorAll('.memory-card'));
-        const totalPairs = memoryCardsElements.length / 2;
+        function initializeMemoryGame(gameRootElement) {
+            const memoryGameContainer = gameRootElement.querySelector('.memory-game');
+            if (!memoryGameContainer) { console.error("Memory game container not found in", gameRootElement); return; }
+            
+            let memoryCardsElements = Array.from(memoryGameContainer.querySelectorAll('.memory-card'));
+            const totalPairs = memoryCardsElements.length / 2;
+            let hasFlippedCard = false, lockBoard = false;
+            let firstCard, secondCard;
+            let moves = 0, pairsFound = 0; // Instance-specific state
+            
+            const movesDisplay = gameRootElement.querySelector('.js-memory-moves');
+            const pairsDisplay = gameRootElement.querySelector('.js-memory-pairs');
+            const resetMemoryBtn = gameRootElement.querySelector('.js-reset-memory');
 
-        let hasFlippedCard = false;
-        let lockBoard = false;
-        let firstCard, secondCard;
-        let moves = 0;
-        let pairsFound = 0;
-        const movesDisplay = document.getElementById('moves');
-        const pairsDisplay = document.getElementById('pairs');
-        const resetMemoryBtn = document.getElementById('reset-memory');
-        
-        function flipCardMemory() {
-            if (lockBoard || this.classList.contains('flipped')) return;
-            if (this === firstCard) return;
-            
-            this.classList.add('flipped');
-            this.textContent = this.dataset.card;
-            
-            if (!hasFlippedCard) {
-                hasFlippedCard = true;
-                firstCard = this;
-                return;
+            function flipCardMemory(event) { 
+                const card = event.currentTarget;
+                if (lockBoard || card.classList.contains('flipped') || card === firstCard) return;
+                card.classList.add('flipped'); 
+                card.textContent = card.dataset.card;
+                if (!hasFlippedCard) { hasFlippedCard = true; firstCard = card; return; }
+                secondCard = card; moves++; if(movesDisplay) movesDisplay.textContent = moves; checkForMatchMemory();
             }
-            
-            secondCard = this;
-            moves++;
-            movesDisplay.textContent = moves;
-            checkForMatchMemory();
-        }
-        
-        function checkForMatchMemory() {
-            lockBoard = true; // Lock board while checking
-            let isMatch = firstCard.dataset.card === secondCard.dataset.card;
-            
-            if (isMatch) {
-                disableCardsMemory();
-                pairsFound++;
-                pairsDisplay.textContent = pairsFound;
-                if (pairsFound === totalPairs) {
-                    setTimeout(() => alert(`Congratulations! You won in ${moves} moves!`), 500);
-                }
-                unlockBoardMemory(); // Unlock immediately after match
-            } else {
-                unflipCardsMemory();
+            function checkForMatchMemory() { 
+                lockBoard = true; let isMatch = firstCard.dataset.card === secondCard.dataset.card;
+                if (isMatch) { 
+                    disableCardsMemory(); pairsFound++; if(pairsDisplay) pairsDisplay.textContent = pairsFound; 
+                    if (pairsFound === totalPairs) { setTimeout(() => alert(`Congrats! Matched all ${totalPairs} emoji pairs in ${moves} moves!`), 300); }
+                    unlockBoardMemory(); 
+                } else { unflipCardsMemory(); }
             }
-        }
-        
-        function disableCardsMemory() {
-            firstCard.removeEventListener('click', flipCardMemory);
-            secondCard.removeEventListener('click', flipCardMemory);
-            // No need to call resetBoardMemory here, handled by unlockBoardMemory or unflip
-        }
-        
-        function unflipCardsMemory() {
-            setTimeout(() => {
-                if (firstCard) {
-                    firstCard.classList.remove('flipped');
-                    firstCard.textContent = '?';
-                }
-                if (secondCard) {
-                    secondCard.classList.remove('flipped');
-                    secondCard.textContent = '?';
-                }
+            function disableCardsMemory() { 
+                firstCard.removeEventListener('click', flipCardMemory); 
+                secondCard.removeEventListener('click', flipCardMemory); 
+            }
+            function unflipCardsMemory() { 
+                setTimeout(() => { 
+                    if(firstCard) {firstCard.classList.remove('flipped'); firstCard.textContent = '?';} 
+                    if(secondCard){secondCard.classList.remove('flipped'); secondCard.textContent = '?';} 
+                    unlockBoardMemory(); 
+                }, 800); 
+            }
+            function unlockBoardMemory() { [hasFlippedCard, lockBoard] = [false, false]; [firstCard, secondCard] = [null, null]; }
+            
+            function resetThisMemoryGame() { 
+                moves = 0; pairsFound = 0;
+                if(movesDisplay) movesDisplay.textContent = moves;
+                if(pairsDisplay) pairsDisplay.textContent = pairsFound;
                 unlockBoardMemory();
-            }, 1000);
+                memoryCardsElements.forEach(card => {
+                    let randomPos = Math.floor(Math.random() * memoryCardsElements.length);
+                    card.style.order = randomPos; 
+                    card.classList.remove('flipped'); 
+                    card.textContent = '?'; 
+                    card.removeEventListener('click', flipCardMemory); 
+                    card.addEventListener('click', flipCardMemory);
+                });
+            }
+            if(resetMemoryBtn) resetMemoryBtn.addEventListener('click', resetThisMemoryGame);
+            resetThisMemoryGame(); // Initial setup for this instance
         }
-
-        function unlockBoardMemory() {
-            [hasFlippedCard, lockBoard] = [false, false];
-            [firstCard, secondCard] = [null, null];
-        }
-        
-        function resetMemoryGame() {
-            moves = 0;
-            pairsFound = 0;
-            movesDisplay.textContent = moves;
-            pairsDisplay.textContent = pairsFound;
-            unlockBoardMemory();
-            
-            // Shuffle cards
-            memoryCardsElements.forEach(card => {
-                let randomPos = Math.floor(Math.random() * memoryCardsElements.length);
-                card.style.order = randomPos;
-                card.classList.remove('flipped');
-                card.textContent = '?';
-                card.removeEventListener('click', flipCardMemory); // Remove old before adding new
-                card.addEventListener('click', flipCardMemory);
-            });
-        }
-        
-        memoryCardsElements.forEach(card => card.addEventListener('click', flipCardMemory));
-        resetMemoryBtn.addEventListener('click', resetMemoryGame);
-        resetMemoryGame(); // Initial shuffle and setup
         
         // --- Snake Game Logic ---
-        const snakeBoardEl = document.getElementById('snake-board');
-        const snakeScoreEl = document.getElementById('snake-score');
-        const snakeSpeedDisplayEl = document.getElementById('snake-speed');
-        const resetSnakeBtnEl = document.getElementById('reset-snake');
-        const snakeControlBtns = document.querySelectorAll('.snake-controls .control-btn');
-        
-        const GRID_SIZE = 20;
-        let snake = [];
-        let snakeFood = {};
-        let snakeDirection = 'right';
-        let snakeNextDirection = 'right';
-        let snakeGameScore = 0;
-        let snakeGameSpeed = 1;
-        let snakeGameInterval;
-        let snakeGameRunning = false;
-        const MIN_INTERVAL = 50; // Minimum interval for snake speed
+        let globalSnakeKeyDownHandler = null; // To manage the single global keydown listener
 
-        function initSnakeBoard() {
-            snakeBoardEl.innerHTML = '';
-            for (let i = 0; i < GRID_SIZE; i++) {
-                for (let j = 0; j < GRID_SIZE; j++) {
-                    const cell = document.createElement('div');
-                    cell.classList.add('snake-cell');
-                    cell.id = `s_cell-${i}-${j}`; // y-x
-                    snakeBoardEl.appendChild(cell);
+        function initializeSnakeGame(gameRootElement) {
+            const snakeBoardEl = gameRootElement.querySelector('.js-snake-board');
+            if (!snakeBoardEl) { console.error("Snake board not found in", gameRootElement); return; }
+            
+            const snakeScoreEl = gameRootElement.querySelector('.js-snake-score');
+            const snakeSpeedDisplayEl = gameRootElement.querySelector('.js-snake-speed');
+            const resetSnakeBtnEl = gameRootElement.querySelector('.js-reset-snake');
+            const snakeControlBtns = gameRootElement.querySelectorAll('.snake-controls .control-btn');
+            
+            const GRID_SIZE = 20; 
+            let snake, snakeFood, snakeDirection, snakeNextDirection, snakeGameScore, snakeGameSpeed, snakeGameInterval, snakeGameRunning;
+            const MIN_INTERVAL = 50; 
+            let instanceId = Date.now(); // Unique ID for this game instance's cells
+
+            function initLocalSnakeBoard() { 
+                 snakeBoardEl.innerHTML = ''; 
+                 for (let i = 0; i < GRID_SIZE; i++) {
+                     for (let j = 0; j < GRID_SIZE; j++) { 
+                         const cell = document.createElement('div'); 
+                         cell.classList.add('snake-cell'); 
+                         cell.id = `s_cell-${i}-${j}_${instanceId}`; // Use instanceId for unique cell IDs
+                         snakeBoardEl.appendChild(cell); 
+                     }
+                 }
+            }
+
+            function getCellId(y, x) { return `s_cell-${y}-${x}_${instanceId}`; }
+
+            function startLocalSnakeGame() { 
+                if (snakeGameRunning) return;
+                initLocalSnakeBoard();
+
+                snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}]; 
+                snakeDirection = 'right'; snakeNextDirection = 'right';
+                snakeGameScore = 0; snakeGameSpeed = 1; 
+                if(snakeScoreEl) snakeScoreEl.textContent = snakeGameScore; 
+                if(snakeSpeedDisplayEl) snakeSpeedDisplayEl.textContent = snakeGameSpeed;
+                snakeGameRunning = true; 
+                generateLocalSnakeFood(); drawLocalSnake(); drawLocalSnakeFood();
+                
+                clearInterval(snakeGameInterval); 
+                const intervalTime = Math.max(MIN_INTERVAL, 200 - (snakeGameSpeed - 1) * 20);
+                snakeGameInterval = setInterval(localSnakeGameLoop, intervalTime); 
+                if(resetSnakeBtnEl) resetSnakeBtnEl.textContent = "Restart";
+            }
+
+            function localSnakeGameLoop() { 
+                if (!snakeGameRunning) return; 
+                snakeDirection = snakeNextDirection; 
+                const head = {...snake[0]};
+                if (snakeDirection === 'up') head.y--; else if (snakeDirection === 'down') head.y++; 
+                else if (snakeDirection === 'left') head.x--; else if (snakeDirection === 'right') head.x++;
+                
+                if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE || snake.some(s => s.x === head.x && s.y === head.y)) { 
+                    endLocalSnakeGame(); return; 
+                }
+                snake.unshift(head);
+                if (head.x === snakeFood.x && head.y === snakeFood.y) {
+                    snakeGameScore += 10; if(snakeScoreEl) snakeScoreEl.textContent = snakeGameScore;
+                    if (snakeGameScore > 0 && snakeGameScore % 50 === 0) {
+                        snakeGameSpeed++; if(snakeSpeedDisplayEl) snakeSpeedDisplayEl.textContent = snakeGameSpeed; 
+                        clearInterval(snakeGameInterval);
+                        const intervalTime = Math.max(MIN_INTERVAL, 200 - (snakeGameSpeed - 1) * 20); 
+                        snakeGameInterval = setInterval(localSnakeGameLoop, intervalTime);
+                    } 
+                    generateLocalSnakeFood();
+                } else { snake.pop(); }
+                drawLocalSnake(); drawLocalSnakeFood();
+            }
+
+            function drawLocalSnake() { 
+                snakeBoardEl.querySelectorAll('.snake-cell.snake').forEach(c => c.classList.remove('snake'));
+                snake.forEach(segment => { const cell = snakeBoardEl.querySelector(`#${getCellId(segment.y, segment.x)}`); if (cell) cell.classList.add('snake'); });
+            }
+            function generateLocalSnakeFood() { 
+                do { snakeFood = { x: Math.floor(Math.random()*GRID_SIZE), y: Math.floor(Math.random()*GRID_SIZE) }; } 
+                while (snake.some(s => s.x === snakeFood.x && s.y === snakeFood.y)); 
+            }
+            function drawLocalSnakeFood() { 
+                snakeBoardEl.querySelectorAll('.snake-cell.food').forEach(c => c.classList.remove('food'));
+                const foodCell = snakeBoardEl.querySelector(`#${getCellId(snakeFood.y, snakeFood.x)}`); 
+                if (foodCell) foodCell.classList.add('food');
+            }
+            function endLocalSnakeGame() { 
+                snakeGameRunning = false; clearInterval(snakeGameInterval); 
+                alert(`Game Over! Score: ${snakeGameScore}`); 
+                if(resetSnakeBtnEl) resetSnakeBtnEl.textContent = "Start Game"; 
+            }
+
+            // This is the handler specific to THIS instance of the snake game
+            function instanceSpecificHandleSnakeKeyDown(e) {
+                // Only act if this game instance is visible (either in tab or modal)
+                if (!gameRootElement.offsetParent) return; // Hidden or not in DOM
+
+                if (!snakeGameRunning && (e.key.startsWith("Arrow"))) {
+                    startLocalSnakeGame(); 
+                }
+                if (!snakeGameRunning) return;
+
+                const keyMap = { 'ArrowUp': 'up', 'ArrowDown': 'down', 'ArrowLeft': 'left', 'ArrowRight': 'right' }; 
+                const newDir = keyMap[e.key];
+                if (newDir) { 
+                    e.preventDefault(); 
+                    if ((newDir==='up'&&snakeDirection!=='down')||(newDir==='down'&&snakeDirection!=='up')||(newDir==='left'&&snakeDirection!=='right')||(newDir==='right'&&snakeDirection!=='left')) {
+                        snakeNextDirection = newDir; 
+                    }
                 }
             }
-        }
-        
-        function startSnakeGame() {
-            if (snakeGameRunning) return;
-            snake = [{x: 10, y: 10}, {x: 9, y: 10}, {x: 8, y: 10}];
-            snakeDirection = 'right';
-            snakeNextDirection = 'right';
-            snakeGameScore = 0;
-            snakeGameSpeed = 1;
-            snakeScoreEl.textContent = snakeGameScore;
-            snakeSpeedDisplayEl.textContent = snakeGameSpeed;
-            snakeGameRunning = true;
-            
-            generateSnakeFood();
-            drawSnake();
-            drawSnakeFood();
-            
-            clearInterval(snakeGameInterval);
-            const intervalTime = Math.max(MIN_INTERVAL, 200 - (snakeGameSpeed - 1) * 20);
-            snakeGameInterval = setInterval(snakeGameLoop, intervalTime);
-            resetSnakeBtnEl.textContent = "Restart Game";
-        }
-        
-        function snakeGameLoop() {
-            if (!snakeGameRunning) return;
-            snakeDirection = snakeNextDirection;
-            const head = {...snake[0]};
-            if (snakeDirection === 'up') head.y--;
-            else if (snakeDirection === 'down') head.y++;
-            else if (snakeDirection === 'left') head.x--;
-            else if (snakeDirection === 'right') head.x++;
-            
-            if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE || 
-                snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-                endSnakeGame();
-                return;
+
+            // Remove previous global handler if any, then set the new one
+            if (globalSnakeKeyDownHandler) {
+                document.removeEventListener('keydown', globalSnakeKeyDownHandler);
             }
+            globalSnakeKeyDownHandler = instanceSpecificHandleSnakeKeyDown;
+            document.addEventListener('keydown', globalSnakeKeyDownHandler);
             
-            snake.unshift(head);
-            
-            if (head.x === snakeFood.x && head.y === snakeFood.y) {
-                snakeGameScore += 10;
-                snakeScoreEl.textContent = snakeGameScore;
-                if (snakeGameScore > 0 && snakeGameScore % 50 === 0) {
-                    snakeGameSpeed++;
-                    snakeSpeedDisplayEl.textContent = snakeGameSpeed;
-                    clearInterval(snakeGameInterval);
-                    const intervalTime = Math.max(MIN_INTERVAL, 200 - (snakeGameSpeed - 1) * 20);
-                    snakeGameInterval = setInterval(snakeGameLoop, intervalTime);
-                }
-                generateSnakeFood();
-            } else {
-                snake.pop();
-            }
-            drawSnake();
-            drawSnakeFood();
-        }
-        
-        function drawSnake() {
-            document.querySelectorAll('.snake-cell.snake').forEach(c => c.classList.remove('snake'));
-            snake.forEach(segment => {
-                const cell = document.getElementById(`s_cell-${segment.y}-${segment.x}`);
-                if (cell) cell.classList.add('snake');
+            snakeControlBtns.forEach(btn => { 
+                btn.addEventListener('click', () => { 
+                    if (!snakeGameRunning) startLocalSnakeGame(); 
+                    const dirClass = btn.classList[1]; 
+                    const keyEquiv = `Arrow${dirClass.charAt(0).toUpperCase() + dirClass.slice(1)}`; 
+                    instanceSpecificHandleSnakeKeyDown({ key: keyEquiv, preventDefault: () => {} }); 
+                }); 
             });
-        }
-        
-        function generateSnakeFood() {
-            do {
-                snakeFood = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) };
-            } while (snake.some(s => s.x === snakeFood.x && s.y === snakeFood.y));
-        }
-        
-        function drawSnakeFood() {
-            document.querySelectorAll('.snake-cell.food').forEach(c => c.classList.remove('food'));
-            const foodCell = document.getElementById(`s_cell-${snakeFood.y}-${snakeFood.x}`);
-            if (foodCell) foodCell.classList.add('food');
-        }
-        
-        function endSnakeGame() {
-            snakeGameRunning = false;
-            clearInterval(snakeGameInterval);
-            alert(`Game Over! Your score: ${snakeGameScore}`);
-            resetSnakeBtnEl.textContent = "Start Game";
-        }
-        
-        function handleSnakeKeyDown(e) {
-            if (!snakeGameRunning) return;
-            const keyMap = { 'ArrowUp': 'up', 'ArrowDown': 'down', 'ArrowLeft': 'left', 'ArrowRight': 'right' };
-            const newDir = keyMap[e.key];
-            if (newDir) {
-                e.preventDefault(); // Prevent page scrolling
-                if ((newDir === 'up' && snakeDirection !== 'down') || (newDir === 'down' && snakeDirection !== 'up') ||
-                    (newDir === 'left' && snakeDirection !== 'right') || (newDir === 'right' && snakeDirection !== 'left')) {
-                    snakeNextDirection = newDir;
-                }
+            
+            if(resetSnakeBtnEl) {
+                resetSnakeBtnEl.addEventListener('click', () => { 
+                    if (snakeGameRunning) endLocalSnakeGame(); 
+                    startLocalSnakeGame(); 
+                });
             }
+            initLocalSnakeBoard(); // Initial setup for this instance
         }
-        
-        snakeControlBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (!snakeGameRunning) startSnakeGame(); // Start game on first control press if not running
-                const dirClass = btn.classList[1]; // up, down, left, right
-                const keyEquiv = `Arrow${dirClass.charAt(0).toUpperCase() + dirClass.slice(1)}`;
-                handleSnakeKeyDown({ key: keyEquiv, preventDefault: () => {} });
-            });
-        });
-        
-        initSnakeBoard();
-        document.addEventListener('keydown', handleSnakeKeyDown);
-        resetSnakeBtnEl.addEventListener('click', () => {
-            if (snakeGameRunning) endSnakeGame();
-            startSnakeGame();
-        });
+
 
         // --- Minesweeper Game Logic ---
-        const minesweeperBoardEl = document.getElementById('minesweeper-board');
-        const minesCountEl = document.getElementById('mines-count');
-        const flagsCountEl = document.getElementById('flags-count');
-        const resetMinesweeperBtnEl = document.getElementById('reset-minesweeper');
-        
-        const MS_BOARD_SIZE = 10;
-        const MS_MINE_COUNT = 10;
-        let msBoard = [];
-        let msMineLocations = [];
-        let msFlags = MS_MINE_COUNT;
-        let msGameOver = false;
-        let msRevealedCells = 0;
-        
-        function initMinesweeperBoard() {
-            minesweeperBoardEl.innerHTML = '';
-            msBoard = [];
-            msMineLocations = [];
-            msFlags = MS_MINE_COUNT;
-            msGameOver = false;
-            msRevealedCells = 0;
-            minesCountEl.textContent = MS_MINE_COUNT;
-            flagsCountEl.textContent = msFlags;
+        function initializeMinesweeperGame(gameRootElement) {
+            const minesweeperBoardEl = gameRootElement.querySelector('.js-minesweeper-board');
+            if(!minesweeperBoardEl) { console.error("Minesweeper board not found in", gameRootElement); return; }
             
-            for (let r = 0; r < MS_BOARD_SIZE; r++) {
-                msBoard[r] = [];
-                for (let c = 0; c < MS_BOARD_SIZE; c++) {
-                    msBoard[r][c] = { isMine: false, isRevealed: false, isFlagged: false, neighborCount: 0 };
-                    const cell = document.createElement('div');
-                    cell.classList.add('minesweeper-cell');
-                    cell.dataset.row = r; cell.dataset.col = c;
-                    cell.addEventListener('click', () => revealMsCell(r, c));
-                    cell.addEventListener('contextmenu', (e) => { e.preventDefault(); flagMsCell(r, c); });
-                    minesweeperBoardEl.appendChild(cell);
-                }
-            }
-            placeMsMines();
-            calculateMsNeighbors();
-        }
-        
-        function placeMsMines() {
-            let minesPlaced = 0;
-            while (minesPlaced < MS_MINE_COUNT) {
-                const r = Math.floor(Math.random() * MS_BOARD_SIZE);
-                const c = Math.floor(Math.random() * MS_BOARD_SIZE);
-                if (!msBoard[r][c].isMine) {
-                    msBoard[r][c].isMine = true;
-                    msMineLocations.push({r, c});
-                    minesPlaced++;
-                }
-            }
-        }
-        
-        function calculateMsNeighbors() {
-            for (let r = 0; r < MS_BOARD_SIZE; r++) {
-                for (let c = 0; c < MS_BOARD_SIZE; c++) {
-                    if (msBoard[r][c].isMine) continue;
-                    let count = 0;
-                    for (let dr = -1; dr <= 1; dr++) {
-                        for (let dc = -1; dc <= 1; dc++) {
-                            if (dr === 0 && dc === 0) continue;
-                            const nr = r + dr, nc = c + dc;
-                            if (nr >= 0 && nr < MS_BOARD_SIZE && nc >= 0 && nc < MS_BOARD_SIZE && msBoard[nr][nc].isMine) {
-                                count++;
-                            }
-                        }
+            const minesCountEl = gameRootElement.querySelector('.js-mines-count');
+            const flagsCountEl = gameRootElement.querySelector('.js-flags-count');
+            const resetMinesweeperBtnEl = gameRootElement.querySelector('.js-reset-minesweeper');
+            
+            const MS_BOARD_SIZE = 10, MS_MINE_COUNT = 10;
+            let msBoard, msMineLocations, msFlags, msGameOver, msRevealedCells;
+
+            function initLocalMinesweeperBoard() { 
+                minesweeperBoardEl.innerHTML = ''; 
+                msBoard = []; msMineLocations = []; msFlags = MS_MINE_COUNT; 
+                msGameOver = false; msRevealedCells = 0;
+                if(minesCountEl) minesCountEl.textContent = MS_MINE_COUNT;
+                if(flagsCountEl) flagsCountEl.textContent = msFlags;
+                
+                for (let r = 0; r < MS_BOARD_SIZE; r++) {
+                    msBoard[r] = []; 
+                    for (let c = 0; c < MS_BOARD_SIZE; c++) {
+                        msBoard[r][c] = { isMine: false, isRevealed: false, isFlagged: false, neighborCount: 0 };
+                        const cell = document.createElement('div'); 
+                        cell.classList.add('minesweeper-cell'); 
+                        cell.dataset.row = r; cell.dataset.col = c;
+                        // Add event listeners specific to this instance's cells
+                        cell.addEventListener('click', () => revealLocalMsCell(r, c)); 
+                        cell.addEventListener('contextmenu', (e) => { e.preventDefault(); flagLocalMsCell(r, c); });
+                        minesweeperBoardEl.appendChild(cell);
                     }
-                    msBoard[r][c].neighborCount = count;
-                }
+                } 
+                placeLocalMsMines(); calculateLocalMsNeighbors();
             }
-        }
-        
-        function revealMsCell(r, c) {
-            if (msGameOver || msBoard[r][c].isRevealed || msBoard[r][c].isFlagged) return;
-            const cellData = msBoard[r][c];
-            const cellEl = document.querySelector(`.minesweeper-cell[data-row="${r}"][data-col="${c}"]`);
+            function placeLocalMsMines() { let minesPlaced = 0; while (minesPlaced < MS_MINE_COUNT) { const r = Math.floor(Math.random()*MS_BOARD_SIZE), c = Math.floor(Math.random()*MS_BOARD_SIZE); if (!msBoard[r][c].isMine) { msBoard[r][c].isMine = true; msMineLocations.push({r,c}); minesPlaced++; } } }
+            function calculateLocalMsNeighbors() { for (let r=0;r<MS_BOARD_SIZE;r++) for (let c=0;c<MS_BOARD_SIZE;c++) { if(msBoard[r][c].isMine) continue; let count=0; for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++) { if(dr===0&&dc===0)continue; const nr=r+dr,nc=c+dc; if(nr>=0&&nr<MS_BOARD_SIZE&&nc>=0&&nc<MS_BOARD_SIZE&&msBoard[nr][nc].isMine)count++;} msBoard[r][c].neighborCount=count;}}
             
-            cellData.isRevealed = true;
-            cellEl.classList.add('revealed');
-            msRevealedCells++;
+            function revealLocalMsCell(r, c) { 
+                if (msGameOver || msBoard[r][c].isRevealed || msBoard[r][c].isFlagged) return;
+                const cellData = msBoard[r][c]; 
+                const cellEl = minesweeperBoardEl.querySelector(`.minesweeper-cell[data-row="${r}"][data-col="${c}"]`);
+                if (!cellEl) return;
+
+                cellData.isRevealed = true; cellEl.classList.add('revealed'); msRevealedCells++;
+                if (cellData.isMine) { cellEl.classList.add('mine'); msGameOver = true; revealAllLocalMsMines(); setTimeout(() => alert('Game Over! You hit a mine.'),100); return;}
+                if (cellData.neighborCount > 0) { cellEl.textContent = cellData.neighborCount; const colors=['', 'blue', 'green', 'red', 'darkblue', 'darkred', 'cyan', 'black', 'gray']; cellEl.style.color = colors[cellData.neighborCount];}
+                else { for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++) { if(dr===0&&dc===0)continue; const nr=r+dr,nc=c+dc; if(nr>=0&&nr<MS_BOARD_SIZE&&nc>=0&&nc<MS_BOARD_SIZE)revealLocalMsCell(nr,nc);}}
+                checkLocalMsWin();
+            }
+            function flagLocalMsCell(r, c) { 
+                if (msGameOver || msBoard[r][c].isRevealed) return; 
+                const cellData = msBoard[r][c]; 
+                const cellEl = minesweeperBoardEl.querySelector(`.minesweeper-cell[data-row="${r}"][data-col="${c}"]`);
+                if (!cellEl) return;
+
+                if (!cellData.isFlagged && msFlags > 0) { cellData.isFlagged = true; cellEl.classList.add('flagged'); msFlags--; }
+                else if (cellData.isFlagged) { cellData.isFlagged = false; cellEl.classList.remove('flagged'); msFlags++; }
+                if(flagsCountEl) flagsCountEl.textContent = msFlags;
+            }
+            function revealAllLocalMsMines() { msMineLocations.forEach(mine => { const cell = minesweeperBoardEl.querySelector(`.minesweeper-cell[data-row="${mine.r}"][data-col="${mine.c}"]`); if (cell && !msBoard[mine.r][mine.c].isFlagged) cell.classList.add('mine', 'revealed'); }); }
+            function checkLocalMsWin() { if (!msGameOver && msRevealedCells === MS_BOARD_SIZE*MS_BOARD_SIZE - MS_MINE_COUNT) { msGameOver = true; revealAllLocalMsMines(); setTimeout(() => alert('Congrats! You won Minesweeper!'),100);}}
             
-            if (cellData.isMine) {
-                cellEl.classList.add('mine');
-                msGameOver = true;
-                revealAllMsMines();
-                setTimeout(() => alert('Game Over! You hit a mine.'), 100);
-                return;
-            }
-            
-            if (cellData.neighborCount > 0) {
-                cellEl.textContent = cellData.neighborCount;
-                const colors = ['', 'blue', 'green', 'red', 'darkblue', 'darkred', 'cyan', 'black', 'gray'];
-                cellEl.style.color = colors[cellData.neighborCount];
-            } else { // Flood fill for empty cells
-                for (let dr = -1; dr <= 1; dr++) {
-                    for (let dc = -1; dc <= 1; dc++) {
-                         if (dr === 0 && dc === 0) continue;
-                        const nr = r + dr, nc = c + dc;
-                        if (nr >= 0 && nr < MS_BOARD_SIZE && nc >= 0 && nc < MS_BOARD_SIZE) {
-                            revealMsCell(nr, nc); // Recursive call
-                        }
-                    }
-                }
-            }
-            checkMsWin();
+            if(resetMinesweeperBtnEl) resetMinesweeperBtnEl.addEventListener('click', initLocalMinesweeperBoard);
+            initLocalMinesweeperBoard(); // Initial setup for this instance
         }
-        
-        function flagMsCell(r, c) {
-            if (msGameOver || msBoard[r][c].isRevealed) return;
-            const cellData = msBoard[r][c];
-            const cellEl = document.querySelector(`.minesweeper-cell[data-row="${r}"][data-col="${c}"]`);
-            
-            if (!cellData.isFlagged && msFlags > 0) {
-                cellData.isFlagged = true; cellEl.classList.add('flagged'); msFlags--;
-            } else if (cellData.isFlagged) {
-                cellData.isFlagged = false; cellEl.classList.remove('flagged'); msFlags++;
-            }
-            flagsCountEl.textContent = msFlags;
-        }
-        
-        function revealAllMsMines() {
-            msMineLocations.forEach(mine => {
-                const cell = document.querySelector(`.minesweeper-cell[data-row="${mine.r}"][data-col="${mine.c}"]`);
-                if (!msBoard[mine.r][mine.c].isFlagged) { // Only reveal if not (correctly or incorrectly) flagged
-                    cell.classList.add('mine', 'revealed');
-                }
-            });
-        }
-        
-        function checkMsWin() {
-            if (!msGameOver && msRevealedCells === MS_BOARD_SIZE * MS_BOARD_SIZE - MS_MINE_COUNT) {
-                msGameOver = true;
-                revealAllMsMines(); // Optionally reveal flags on mines
-                setTimeout(() => alert('Congratulations! You won Minesweeper!'), 100);
-            }
-        }
-        
-        resetMinesweeperBtnEl.addEventListener('click', initMinesweeperBoard);
-        initMinesweeperBoard(); // Initialize on load
 
         // --- Tic-Tac-Toe Logic ---
-        const tttBoardEl = document.getElementById('tictactoe-board');
-        const tttStatusEl = document.getElementById('tictactoe-status');
-        const resetTttBtn = document.getElementById('reset-tictactoe');
-        let tttCurrentPlayer = 'X';
-        let tttBoardState = Array(9).fill(null);
-        let tttGameActive = true;
+        function initializeTicTacToeGame(gameRootElement) {
+            const tttBoardEl = gameRootElement.querySelector('.js-tictactoe-board');
+            if(!tttBoardEl) { console.error("TicTacToe board not found in", gameRootElement); return; }
+            const tttStatusEl = gameRootElement.querySelector('.js-tictactoe-status');
+            const resetTttBtn = gameRootElement.querySelector('.js-reset-tictactoe');
+            
+            let tttCurrentPlayer, tttBoardState, tttGameActive;
+            const tttWinningConditions = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
-        const tttWinningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-            [0, 4, 8], [2, 4, 6]             // Diagonals
-        ];
-
-        function createTttBoard() {
-            tttBoardEl.innerHTML = '';
-            for (let i = 0; i < 9; i++) {
-                const cell = document.createElement('div');
-                cell.classList.add('tictactoe-cell');
-                cell.dataset.index = i;
-                cell.addEventListener('click', handleTttCellClick);
-                tttBoardEl.appendChild(cell);
-            }
-        }
-
-        function handleTttCellClick(event) {
-            const clickedCellIndex = parseInt(event.target.dataset.index);
-            if (tttBoardState[clickedCellIndex] || !tttGameActive) {
-                return;
-            }
-            tttBoardState[clickedCellIndex] = tttCurrentPlayer;
-            event.target.textContent = tttCurrentPlayer;
-            event.target.classList.add('occupied');
-            checkTttResult();
-        }
-
-        function checkTttResult() {
-            let roundWon = false;
-            for (let i = 0; i < tttWinningConditions.length; i++) {
-                const winCondition = tttWinningConditions[i];
-                let a = tttBoardState[winCondition[0]];
-                let b = tttBoardState[winCondition[1]];
-                let c = tttBoardState[winCondition[2]];
-                if (a === null || b === null || c === null) continue;
-                if (a === b && b === c) {
-                    roundWon = true;
-                    break;
+            function createLocalTttBoard() { 
+                tttBoardEl.innerHTML = ''; 
+                for (let i=0; i<9; i++) { 
+                    const cell=document.createElement('div'); 
+                    cell.classList.add('tictactoe-cell'); 
+                    cell.dataset.index = i; 
+                    cell.addEventListener('click', handleLocalTttCellClick); 
+                    tttBoardEl.appendChild(cell); 
                 }
             }
-
-            if (roundWon) {
-                tttStatusEl.textContent = `Player ${tttCurrentPlayer} has won!`;
-                tttGameActive = false;
-                return;
+            function handleLocalTttCellClick(event) { 
+                const clickedCellIndex = parseInt(event.target.dataset.index); 
+                if (tttBoardState[clickedCellIndex] || !tttGameActive) return; 
+                tttBoardState[clickedCellIndex] = tttCurrentPlayer; 
+                event.target.textContent = tttCurrentPlayer; 
+                event.target.classList.add('occupied'); 
+                checkLocalTttResult(); 
             }
-
-            if (!tttBoardState.includes(null)) {
-                tttStatusEl.textContent = 'Game ended in a draw!';
-                tttGameActive = false;
-                return;
+            function checkLocalTttResult() { 
+                let roundWon = false; 
+                for (let i=0; i<tttWinningConditions.length; i++) { 
+                    const wc=tttWinningConditions[i]; 
+                    let a=tttBoardState[wc[0]],b=tttBoardState[wc[1]],c=tttBoardState[wc[2]]; 
+                    if(a===null||b===null||c===null)continue; 
+                    if(a===b&&b===c){roundWon=true;break;}
+                }
+                if (roundWon) { if(tttStatusEl) tttStatusEl.textContent = `Player ${tttCurrentPlayer} has won!`; tttGameActive = false; return; }
+                if (!tttBoardState.includes(null)) { if(tttStatusEl) tttStatusEl.textContent = 'Game ended in a draw!'; tttGameActive = false; return; }
+                tttCurrentPlayer = tttCurrentPlayer === 'X' ? 'O' : 'X'; 
+                if(tttStatusEl) tttStatusEl.textContent = `Player ${tttCurrentPlayer}'s turn`;
             }
-
-            tttCurrentPlayer = tttCurrentPlayer === 'X' ? 'O' : 'X';
-            tttStatusEl.textContent = `Player ${tttCurrentPlayer}'s turn`;
+            function resetLocalTicTacToe() { 
+                tttCurrentPlayer = 'X'; tttBoardState = Array(9).fill(null); tttGameActive = true;
+                if(tttStatusEl) tttStatusEl.textContent = `Player ${tttCurrentPlayer}'s turn`;
+                createLocalTttBoard(); 
+            }
+            if(resetTttBtn) resetTttBtn.addEventListener('click', resetLocalTicTacToe);
+            resetLocalTicTacToe(); // Initial setup for this instance
         }
-
-        function resetTicTacToe() {
-            tttCurrentPlayer = 'X';
-            tttBoardState = Array(9).fill(null);
-            tttGameActive = true;
-            tttStatusEl.textContent = `Player ${tttCurrentPlayer}'s turn`;
-            createTttBoard(); // Recreate cells to clear them and re-attach listeners
-        }
-        resetTttBtn.addEventListener('click', resetTicTacToe);
-        resetTicTacToe(); // Initial setup
 
         // --- Rock Paper Scissors Logic ---
-        const rpsChoices = ['rock', 'paper', 'scissors'];
-        const rpsPlayerChoiceEl = document.getElementById('rps-player-choice');
-        const rpsComputerChoiceEl = document.getElementById('rps-computer-choice');
-        const rpsOutcomeEl = document.getElementById('rps-outcome');
-        const rpsPlayerScoreEl = document.getElementById('rps-player-score');
-        const rpsComputerScoreEl = document.getElementById('rps-computer-score');
-        const rpsResetBtn = document.getElementById('reset-rps');
+        function initializeRPSGame(gameRootElement) {
+            const rpsChoices = ['rock', 'paper', 'scissors'];
+            const rpsPlayerChoiceEl = gameRootElement.querySelector('.js-rps-player-choice');
+            if(!rpsPlayerChoiceEl) { console.error("RPS player choice element not found in", gameRootElement); return; }
+            
+            const rpsComputerChoiceEl = gameRootElement.querySelector('.js-rps-computer-choice');
+            const rpsOutcomeEl = gameRootElement.querySelector('.js-rps-outcome');
+            const rpsPlayerScoreEl = gameRootElement.querySelector('.js-rps-player-score');
+            const rpsComputerScoreEl = gameRootElement.querySelector('.js-rps-computer-score');
+            const rpsResetBtn = gameRootElement.querySelector('.js-reset-rps');
+            
+            let rpsPlayerScore = 0, rpsComputerScore = 0;
 
-        let rpsPlayerScore = 0;
-        let rpsComputerScore = 0;
-
-        document.getElementById('rps-rock').addEventListener('click', () => playRPS('rock'));
-        document.getElementById('rps-paper').addEventListener('click', () => playRPS('paper'));
-        document.getElementById('rps-scissors').addEventListener('click', () => playRPS('scissors'));
-        
-        function playRPS(playerChoice) {
-            const computerChoice = rpsChoices[Math.floor(Math.random() * rpsChoices.length)];
-            rpsPlayerChoiceEl.textContent = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1);
-            rpsComputerChoiceEl.textContent = computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1);
-
-            if (playerChoice === computerChoice) {
-                rpsOutcomeEl.textContent = "It's a Tie!";
-            } else if (
-                (playerChoice === 'rock' && computerChoice === 'scissors') ||
-                (playerChoice === 'paper' && computerChoice === 'rock') ||
-                (playerChoice === 'scissors' && computerChoice === 'paper')
-            ) {
-                rpsOutcomeEl.textContent = 'You Win!';
-                rpsPlayerScore++;
-            } else {
-                rpsOutcomeEl.textContent = 'Computer Wins!';
-                rpsComputerScore++;
-            }
-            updateRPSScore();
-        }
-
-        function updateRPSScore() {
-            rpsPlayerScoreEl.textContent = rpsPlayerScore;
-            rpsComputerScoreEl.textContent = rpsComputerScore;
-        }
-        
-        function resetRPSGame(fullReset = true) {
-            if (fullReset) {
-                rpsPlayerScore = 0;
-                rpsComputerScore = 0;
-            }
-            rpsPlayerChoiceEl.textContent = '-';
-            rpsComputerChoiceEl.textContent = '-';
-            rpsOutcomeEl.textContent = 'Choose your weapon!';
-            updateRPSScore();
-        }
-        rpsResetBtn.addEventListener('click', () => resetRPSGame(true));
-        resetRPSGame(false); // Initial setup without resetting scores
-
-        // --- Smooth scrolling for anchor links ---
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href.length > 1 && document.querySelector(href)) { // Check if it's a valid selector and not just "#"
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            gameRootElement.querySelector('.js-rps-rock').addEventListener('click', () => playLocalRPS('rock'));
+            gameRootElement.querySelector('.js-rps-paper').addEventListener('click', () => playLocalRPS('paper'));
+            gameRootElement.querySelector('.js-rps-scissors').addEventListener('click', () => playLocalRPS('scissors'));
+            
+            function playLocalRPS(playerChoice) { 
+                const computerChoice = rpsChoices[Math.floor(Math.random() * rpsChoices.length)];
+                if(rpsPlayerChoiceEl) rpsPlayerChoiceEl.textContent = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1);
+                if(rpsComputerChoiceEl) rpsComputerChoiceEl.textContent = computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1);
+                
+                if (playerChoice === computerChoice) { if(rpsOutcomeEl) rpsOutcomeEl.textContent = "It's a Tie!"; }
+                else if ((playerChoice==='rock'&&computerChoice==='scissors')||(playerChoice==='paper'&&computerChoice==='rock')||(playerChoice==='scissors'&&computerChoice==='paper')) { 
+                    if(rpsOutcomeEl) rpsOutcomeEl.textContent = 'You Win!'; rpsPlayerScore++; 
+                } else { 
+                    if(rpsOutcomeEl) rpsOutcomeEl.textContent = 'Computer Wins!'; rpsComputerScore++; 
                 }
-            });
-        });
-
+                updateLocalRPSScore();
+            }
+            function updateLocalRPSScore() { 
+                if(rpsPlayerScoreEl) rpsPlayerScoreEl.textContent = rpsPlayerScore; 
+                if(rpsComputerScoreEl) rpsComputerScoreEl.textContent = rpsComputerScore; 
+            }
+            function resetLocalRPSGame(fullReset = true) { 
+                if (fullReset) { rpsPlayerScore = 0; rpsComputerScore = 0; }
+                if(rpsPlayerChoiceEl) rpsPlayerChoiceEl.textContent = '-';
+                if(rpsComputerChoiceEl) rpsComputerChoiceEl.textContent = '-';
+                if(rpsOutcomeEl) rpsOutcomeEl.textContent = 'Choose your weapon!';
+                updateLocalRPSScore(); 
+            }
+            if(rpsResetBtn) rpsResetBtn.addEventListener('click', () => resetLocalRPSGame(true));
+            resetLocalRPSGame(false); // Initial setup for this instance
+        }
+        
         // Set the first game tab as active on load
         if (tabBtns.length > 0) {
-            tabBtns[0].click(); // Simulate a click on the first tab
+            tabBtns[0].click(); 
         }
+
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
     });
     </script>
