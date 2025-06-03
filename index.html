@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaming Portfolio - Your Name</title>
+    <title>Gaming Portfolio - Mahendar Y</title>
     <style>
         * {
             margin: 0;
@@ -12,10 +12,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #ffffff;
             min-height: 100vh;
+            line-height: 1.6;
         }
 
         .container {
@@ -28,35 +29,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 2px solid rgba(255,255,255,0.1);
-            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 1px solid #222;
+            margin-bottom: 60px;
         }
 
         .logo {
-            font-size: 2em;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #ffffff;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
         }
 
         .nav-link {
             cursor: pointer;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            color: #888;
+            font-weight: 500;
         }
 
         .nav-link:hover, .nav-link.active {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+            color: #ffffff;
+            background: #1a1a1a;
         }
 
         .section {
@@ -69,42 +69,41 @@
 
         .profile-section {
             text-align: center;
-            padding: 60px 0;
+            padding: 80px 0;
         }
 
         .profile-avatar {
-            width: 200px;
-            height: 200px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            margin: 0 auto 30px;
+            background: #1a1a1a;
+            margin: 0 auto 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4em;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            font-size: 2.5em;
+            border: 1px solid #333;
         }
 
         .profile-name {
-            font-size: 3em;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #ffffff;
         }
 
         .profile-title {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            color: #888;
+            font-weight: 400;
         }
 
         .profile-bio {
             max-width: 600px;
             margin: 0 auto;
             font-size: 1.1em;
-            line-height: 1.6;
-            opacity: 0.8;
+            color: #ccc;
         }
 
         .games-grid {
@@ -115,35 +114,35 @@
         }
 
         .game-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 30px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 32px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+            border: 1px solid #333;
         }
 
         .game-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.15);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            background: #222;
+            border-color: #444;
         }
 
         .game-icon {
-            font-size: 3em;
+            font-size: 2.5em;
             margin-bottom: 20px;
         }
 
         .game-title {
-            font-size: 1.5em;
-            margin-bottom: 15px;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #ffffff;
         }
 
         .game-description {
-            opacity: 0.8;
-            line-height: 1.5;
+            color: #888;
+            font-size: 0.95em;
         }
 
         .game-container {
@@ -225,7 +224,7 @@
         <section id="home" class="section active">
             <div class="profile-section">
                 <div class="profile-avatar">🎯</div>
-                <h1 class="profile-name">Your Name</h1>
+                <h1 class="profile-name">Mahendar Y</h1>
                 <p class="profile-title">Game Developer & Creative Coder</p>
                 <p class="profile-bio">
                     Welcome to my gaming portfolio! I'm passionate about creating engaging and fun experiences through code. 
@@ -745,3 +744,96 @@
                 if (brick.visible &&
                     breakoutGame.ball.x >= brick.x &&
                     breakoutGame.ball.x <= brick.x + brick.width &&
+                    breakoutGame.ball.y >= brick.y &&
+                    breakoutGame.ball.y <= brick.y + brick.height) {
+                    brick.visible = false;
+                    breakoutGame.ball.dy = -breakoutGame.ball.dy;
+                    breakoutGame.score += 10;
+                    document.getElementById('breakout-score').textContent = breakoutGame.score;
+                    
+                    // Check win condition
+                    if (breakoutGame.bricks.every(b => !b.visible)) {
+                        breakoutGame.running = false;
+                        alert('Congratulations! You cleared all bricks!');
+                    }
+                }
+            });
+            
+            // Ball out of bounds
+            if (breakoutGame.ball.y > 400) {
+                breakoutGame.lives--;
+                document.getElementById('breakout-lives').textContent = breakoutGame.lives;
+                if (breakoutGame.lives <= 0) {
+                    breakoutGame.running = false;
+                    alert('Game Over! Final Score: ' + breakoutGame.score);
+                } else {
+                    // Reset ball position
+                    breakoutGame.ball.x = 300;
+                    breakoutGame.ball.y = 350;
+                    breakoutGame.ball.dx = 4;
+                    breakoutGame.ball.dy = -4;
+                }
+            }
+        }
+
+        function drawBreakout() {
+            // Draw ball
+            breakoutGame.ctx.fillStyle = '#ff6b6b';
+            breakoutGame.ctx.beginPath();
+            breakoutGame.ctx.arc(breakoutGame.ball.x, breakoutGame.ball.y, breakoutGame.ball.radius, 0, Math.PI * 2);
+            breakoutGame.ctx.fill();
+            
+            // Draw paddle
+            breakoutGame.ctx.fillStyle = '#4ecdc4';
+            breakoutGame.ctx.fillRect(breakoutGame.paddle.x, breakoutGame.paddle.y, breakoutGame.paddle.width, breakoutGame.paddle.height);
+            
+            // Draw bricks
+            breakoutGame.bricks.forEach(brick => {
+                if (brick.visible) {
+                    breakoutGame.ctx.fillStyle = brick.color;
+                    breakoutGame.ctx.fillRect(brick.x, brick.y, brick.width, brick.height);
+                }
+            });
+        }
+
+        function movePaddleBreakout(e) {
+            if (!breakoutGame.running) return;
+            
+            if (e.key === 'ArrowLeft') {
+                breakoutGame.paddle.x = Math.max(0, breakoutGame.paddle.x - 20);
+            } else if (e.key === 'ArrowRight') {
+                breakoutGame.paddle.x = Math.min(500, breakoutGame.paddle.x + 20);
+            }
+        }
+
+        function movePaddleMouse(e) {
+            if (!breakoutGame.running) return;
+            
+            const rect = breakoutGame.canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            breakoutGame.paddle.x = Math.max(0, Math.min(500, mouseX - breakoutGame.paddle.width / 2));
+        }
+
+        function resetBreakout() {
+            breakoutGame.running = false;
+            breakoutGame.ball = {x: 300, y: 350, dx: 4, dy: -4, radius: 8};
+            breakoutGame.paddle = {x: 250, y: 380, width: 100, height: 15};
+            breakoutGame.score = 0;
+            breakoutGame.lives = 3;
+            document.getElementById('breakout-score').textContent = '0';
+            document.getElementById('breakout-lives').textContent = '3';
+            initBricks();
+        }
+
+        // Utility function
+        function clearCanvas(ctx, canvas) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Initialize games
+        generateFood();
+        resetBall();
+        startMemory();
+    </script>
+</body>
+</html>
